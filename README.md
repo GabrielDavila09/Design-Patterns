@@ -6,8 +6,14 @@ El patrón de diseño Singleton es uno de los patrones creacionales más conocid
 Imagina que tienes una aplicación en tu teléfono que controla todos los dispositivos de tu casa inteligente. Si quisieras ajustar la temperatura del termostato, abrir la puerta principal o encender las luces, todas esas solicitudes deben pasar por un controlador central que asegura que no haya conflictos entre los comandos, que las instrucciones sean seguras y que los dispositivos respondan de forma coordinada.
 
 ## ¿Cómo aplica el Singleton aquí?
-• El controlador de acceso debe ser único en toda la casa para evitar que haya comandos contradictorios o múltiples sistemas controlando los mismos dispositivos al mismo tiempo.
-• Al usar el patrón Singleton, garantizas que solo haya un punto de acceso central a todos los dispositivos y que ese acceso sea uniforme.
+### • El controlador de acceso debe ser único en toda la casa para evitar que haya comandos contradictorios o múltiples sistemas controlando los mismos dispositivos al mismo tiempo.
+### • Al usar el patrón Singleton, garantizas que solo haya un punto de acceso central a todos los dispositivos y que ese acceso sea uniforme.
+
+## ¿Cómo soluciona el problema?
+### Problema: 
+En situaciones donde la creación de múltiples instancias de una clase puede ser costosa o generar inconsistencias, como en el caso de administrar conexiones a una base de datos, controladores de dispositivos, o gestionar configuraciones globales, crear más de una instancia puede causar sobrecarga de recursos, errores o conflictos.
+### Solución en el código: 
+Al tener un constructor privado y un método estático (Instance), el patrón asegura que no se pueda crear más de una instancia de la clase Singleton. El código se asegura de que siempre se devuelva la misma instancia al solicitarla, sin permitir que se creen objetos adicionales.
 
 ## Código ejemplo en C#
 ``` C#
