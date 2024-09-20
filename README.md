@@ -19,58 +19,93 @@ Al tener un constructor privado y un método estático (Instance), el patrón as
 ``` C#
 using System;
 
-public class Singleton
+public class SmartHomeController
 {
-    // 1. Instancia privada y estática que almacenará la única instancia de la clase
-    private static Singleton _instance;
+    // 1. Instancia única de la clase (Singleton)
+    private static SmartHomeController _instance;
 
-    // 2. Constructor privado: impide que se cree una instancia fuera de la clase
-    private Singleton()
+    // 2. Constructor privado para evitar la creación directa de instancias
+    private SmartHomeController() 
     {
-        Console.WriteLine("Instancia del Singleton creada.");
+        Console.WriteLine("Controlador central de la casa inteligente iniciado.");
     }
 
-    // 3. Método estático que proporciona el acceso global a la instancia
-    public static Singleton Instance
+    // 3. Propiedad estática para obtener la única instancia de SmartHomeController
+    public static SmartHomeController Instance
     {
         get
         {
-            // 4. Si la instancia aún no ha sido creada, la creamos
             if (_instance == null)
             {
-                _instance = new Singleton();
+                _instance = new SmartHomeController();
             }
-            // 5. Devolvemos la instancia única
             return _instance;
         }
     }
 
-    // Ejemplo de método dentro de la clase Singleton
-    public void DoSomething()
+    // Métodos simulados para controlar dispositivos de la casa inteligente
+    public void ControlLights(string action)
     {
-        Console.WriteLine("Método ejecutado desde la instancia Singleton.");
+        if (action == "on")
+        {
+            Console.WriteLine("Luces encendidas.");
+        }
+        else if (action == "off")
+        {
+            Console.WriteLine("Luces apagadas.");
+        }
+        else
+        {
+            Console.WriteLine("Acción desconocida para las luces.");
+        }
+    }
+
+    public void SetTemperature(int temperature)
+    {
+        Console.WriteLine($"La temperatura se ha ajustado a {temperature} grados.");
+    }
+
+    public void LockDoors()
+    {
+        Console.WriteLine("Las puertas están bloqueadas.");
+    }
+
+    public void UnlockDoors()
+    {
+        Console.WriteLine("Las puertas están desbloqueadas.");
     }
 }
 
+// Clase principal para simular la interacción con la casa inteligente
 class Program
 {
     static void Main(string[] args)
     {
-        // Intentamos obtener la instancia de la clase Singleton
-        Singleton instance1 = Singleton.Instance;
+        // Obtener la instancia del controlador de la casa inteligente
+        SmartHomeController controller = SmartHomeController.Instance;
 
-        // Llamamos a un método de la clase Singleton
-        instance1.DoSomething();
+        // Controlar las luces
+        controller.ControlLights("on");
 
-        // Intentamos obtener la instancia de nuevo
-        Singleton instance2 = Singleton.Instance;
+        // Ajustar la temperatura
+        controller.SetTemperature(22);
 
-        // Comprobamos si ambas instancias son iguales
-        if (instance1 == instance2)
+        // Bloquear las puertas
+        controller.LockDoors();
+
+        // Intentar obtener la instancia nuevamente y realizar más acciones
+        SmartHomeController anotherController = SmartHomeController.Instance;
+
+        // Comprobar que ambas referencias son a la misma instancia
+        if (controller == anotherController)
         {
-            Console.WriteLine("Ambas instancias son la misma.");
+            Console.WriteLine("Ambos controladores son la misma instancia.");
         }
+
+        // Apagar las luces
+        anotherController.ControlLights("off");
     }
 }
+
 ```
 https://dotnetfiddle.net/c3Lmfa
